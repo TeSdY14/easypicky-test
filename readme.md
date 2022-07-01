@@ -33,13 +33,13 @@ Launch the Symfony application ``` symfony serve -d ```
 
 (with SYMFONY : `symfony serve` [-d] option "-d" to detach (the terminal will be free) : https://www.php.net/manual/fr/features.commandline.webserver.php)
 
-(with PHP : `PHP -S localhost:9000` : https://www.php.net/manual/fr/features.commandline.webserver.php)
+(with PHP : `PHP -S localhost:8080` : https://www.php.net/manual/fr/features.commandline.webserver.php)
 
-*Your application is available at http://127.0.0.1:9000*
+*Your application is available at http://127.0.0.1:8080*
 
-If you need a database, modify the .env file like this example:
+info for database are availables in .env file :
 ```yaml
-  DATABASE_URL="postgresql://symfony:ChangeMe@database:5432/app?serverVersion=13&charset=utf8"
+  DATABASE_URL="postgresql://easypicky:pouet@ep-dbpsql:5432/easypicky?charset=utf8"
 ```
 
 ## YOU ARE USING DOCKER ##
@@ -71,7 +71,7 @@ https://symfony.com/doc/current/setup.html#technical-requirements
 ##### Useful command to start local server easily (run it in the root of symfony project) :
 ``` symfony serve -d ```
 
-If you run with docker { open **http://localhost:9000/** }
+If you run with docker { open **http://localhost:8080/** }
 
 Else { open **http://localhost** }
 
@@ -111,7 +111,7 @@ With Postman create a new Query
 
 Choose **POST** method 
 
-Enter `http//localhost:9000/api/login` as URL 
+Enter `http//localhost:8080/api/login` as URL 
 
 Click on the tab *Body* below the URL field
 
