@@ -5,9 +5,9 @@
 ## Run Locally
 - Clone the project
 
-| With SSH :                            |                   with HTTPS                   |
-|---------------------------------------|------------------------------------------------|
-| `git@github.com:TeSdY14/sf6-test.git` | `https://github.com/TeSdY14/sf6-test.git` |
+| With SSH :                            | with HTTPS                                 |
+|---------------------------------------|--------------------------------------------|
+| `git@github.com:TeSdY14/sf6-test.git` | `https://github.com/TeSdY14/sf6-test.git`  |
 
 - Enter the project directory
 ```bash
