@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <h1>Hello world ! :) </h1>
+    <p>Utilisateur: {{ user.getFirstName() ?? 'Utilisateur anonyme' }}</p>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin') }}">ADMINISTRATION</a>
+    {% elseif is_granted('ROLE_USER') %}
+        <p>Désolé, rien pour vous !</p>
+        <a href="{{ path('app_logout') }}">Me déconnecter</a>
+    {% else %}
+        <a href="{{ path('admin') }}">LogIn</a>
+    {% endif %}
+{% endblock %}
