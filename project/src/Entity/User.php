@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Action\NotFoundAction;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\Api\MyCompanyController;
+use App\Controller\Api\WhoIAmController;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -16,10 +16,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     collectionOperations: [
         'get' => ['normalization_context' => ['groups' => 'list:User']],
-        'myCompany' => [
-            'path' => '/my-company',
+        'post' => [
+            'security' => "is_granted('ROLE_ADMIN')",
+            'security_message' => 'sorry, only admins can walk around here.',
+        ],
+        'whoIAm??' => [
+            'path' => '/who-i-am',
             'method' => 'get',
-            'controller' => MyCompanyController::class,
+            'controller' => WhoIAmController::class,
             'read' => false,
         ],
     ],

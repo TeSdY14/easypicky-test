@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 #[ApiResource(
@@ -20,6 +21,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     itemOperations: [
         'get' => ['normalization_context' => ['groups' => ['company:list', 'show:client1', 'show:client2']]],
+        'put' => [
+            'security' => "is_granted('ROLE_ADMIN')",
+            'security_message' => 'sorry, only admins can walk around here.',
+        ],
         'patch' => [
             'security' => "is_granted('ROLE_ADMIN')",
             'security_message' => 'sorry, only admins can walk around here.',
@@ -38,6 +43,7 @@ class Company implements UserIsInCompanyInterface
     private ?string $name;
 
     #[ORM\Column(type: 'string', length: 9)]
+    #[Length(min: 9, max: 9)]
     private ?string $siren;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

@@ -150,8 +150,86 @@ Logins :
 
 ### Clients 
 ##### Client1 : 
-- username: Client1@easypicky.fr
+- username: client1@easypicky.fr
 - password: pouet
 ##### Client2
-- username: Client2@easypicky.fr
+- username: client2@easypicky.fr
 - password: pouet
+
+
+
+EVOLUTIONS ENVISAGEABLES 
+- Add tests 
+- POST User (admin only) denormalizer to hashPassword 
+- Build and access a config file (or something like that) to define which property each Client can "read"
+- Adding more control rules on sent values (Constraint Validator as Length on Company->siren (min & max = 9)
+
+
+
+
+
+
+##### Content of the mail sent to Fanny Barat
+``` 
+Bonjour
+
+Bonne nouvelle, j'ai terminé le test, du moins la partie développement EST prête, je suis actuellement en train de fignoler la documentation (ReadMe.md sur le projet) 
+Le projet est disponible ici https://github.com/TeSdY14/easypicky-test
+
+GitHub - TeSdY14/easypicky-test: Made with Php 8 > Symfony 6 - Provides EasyAdmin administration and data available through ApiPlatform API (provides User and Company)
+Made with Php 8 &gt; Symfony 6 - Provides EasyAdmin administration and data available through ApiPlatform API (provides User and Company) - GitHub - TeSdY14/easypicky-test: Made with Php 8 &gt; Sy...
+[image]
+
+Note à la personne en charge du contrôle - Le readme devrait être encore plus complet : 
+J'utilise docker, si vous ne l'avez pas sur votre système rendez vous au point "Vous n'utilisez pas Docker" 
+Sinon, vous avez ou pouvez avoir docker on continue : 
+Depuis un terminal placé dans le répertoire du projet (cloné depuis GitHub), Entrer la commande :
+docker-compose up [--force-recreate --build] 
+
+Le projet sera disponible dans un conteneur docker ["ep-php" pour le projet Symfony et "ep-dbpsql" pour la base de données) 
+
+Le conteneur du projet étant lancé,
+Se rendre dedans afin de pouvoir exploiter les commandes Composer/Symfony/PHP/etc ... 
+docker-compose exec ep-php bash
+
+Le terminal est désormais ouvert dans le projet, se rendre dans le projet Symfony 
+cd project 
+
+Vous n'utilisez pas Docker  
+Il vous faudra tous les composants indispensable à une application Symfony (PHP et ses extensions, Serveur (' Apache, Nginx, ...), BDD ...) 
+
+Et maintenant il faut exécuter les commande d'initialisation d'un projet Symfony 
+(La base de données : PostgreSQL)
+Création de la base de données :
+bin/console doctrine:database:create [ ou simplement bin/console d:d:c ]
+Construire la base de données :
+bin/console doctrine:migrations:migrate [ ou simplement bin/console d:m:m ]
+Envoyer des données dans la base 
+bin/console doctrine:fixtures:load   [ ou simplement bin/console d:f:l ]
+
+Normalement, l'application est opérationnelle. 
+
+Les liens utiles : 
+Accès à l'administration : 
+http://localhost:8080/admin 
+
+Accès à la doc API 
+http://localhost:8080/api/docs 
+
+Pour utiliser la base de données, toutes les entités sont disponibles à partir de 
+http://localhost:8080/api/[entities-names]
+
+Administration (EasyAdmin) 
+Seul un utilisateur Administrateur peut voir la page d'administration, CRUD disponible pour Company, DELETE est retiré pour les Users 
+API (Api-Platform), il est possible de passer par la doc API pour effectuer les requêtes, personnellement j'utilise Postman : 
+Règles :
+Seul les requêtes GET (Item/Collection), Post et Patch sont disponibles sur Company. 
+Seul l'administrateur peut POST ou PATCH sur l'ensemble de l'API,
+La suppression d'utilisateur est impossible depuis l'administration,
+Le client 1 peut faire du GET mais n'obtiendra que les infos de sa Company -> Tout sauf ID et Siren, 
+Le client 1 peut faire du GET mais n'obtiendra que les infos de sa Company -> Uniquement Nom et Activité,
+Aucun client ne peut voir les utilisateurs,
+L'Admin peut effectuer toutes les opérations de Create, Read et Update (Put et Patch) sur l'API mais AUCUN DELETE,
+Une contrainte de validation a été mis en place sur le Siren d'une Company (min et max = 9 caractères), 
+j'ai ajouté une requête sur l'api/doc qui permet de récupérer un Token d'identification afin de tester depuis la doc, même si je ne recommande pas, mais cela évite d'installer un outil externe !
+```

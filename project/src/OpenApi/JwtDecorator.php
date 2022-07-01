@@ -97,8 +97,6 @@ class JwtDecorator implements \ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryIn
             );
         }
 
-
-
         $openApi->getPaths()->addPath('/api/login', $pathItem);
 
         return $openApi;
