@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+    ep-php:
+        container_name: ep-php8-sf6
+        build: php8-sf6
+        ports:
+            - "8080:8000"
+        volumes:
+            - ./project:/var/www/html
+
+    ep-mailer:
+        image: schickling/mailcatcher
+        ports: [ "1025", "1080" ]
+
+    ep-dbpsql:
+        image: postgres:14-alpine
+        environment:
+            POSTGRES_DB: easypicky
+            POSTGRES_PASSWORD: pouet
+            POSTGRES_USER: easypicky
+        volumes:
+            - ep-dbpsql:/var/lib/postgresql/data:rw
+        expose:
+            - "5432"
+        ports:
+            - "5432:5432"
+
+volumes:
+    ep-dbpsql:
