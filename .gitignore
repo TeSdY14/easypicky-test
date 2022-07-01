@@ -1,0 +1,14 @@
+/project/vendor/
+/project/.env
+/project/.env.test
+/project/.env.*.local
+/project/config/secrets/prod/prod.decrypt.private.php
+/project/public/bundles/
+/project/var/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/project/phpunit.xml
+
+## PhpStorm ##
+.idea/
